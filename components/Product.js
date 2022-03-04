@@ -20,7 +20,14 @@ function Product({ id, title, description, category, price, image }) {
         {category}
       </p>
 
-      <Image src={image} alt="" height={200} width={200} objectFit="contain" />
+      <Image
+        className="bg-slate-100"
+        src={image}
+        alt=""
+        height={200}
+        width={200}
+        objectFit="contain"
+      />
 
       <h3>{title}</h3>
 
