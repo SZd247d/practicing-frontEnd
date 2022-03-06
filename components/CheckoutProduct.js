@@ -27,7 +27,6 @@ function CheckoutProduct({
     rating,
     hasPrime,
   }
-  console.log(image)
   console.log(id)
 
   const addItemToAtomState = () => {
@@ -102,7 +101,7 @@ function CheckoutProduct({
         />
 
         {hasPrime && (
-          <div className="-mt-5 flex items-center space-x-2">
+          <div className="mt-5 flex items-center space-x-2">
             <img
               src="http://links.papareact.com/fdw"
               alt=""
