@@ -3,6 +3,8 @@ import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
 import CurrencyFormat from 'react-currency-format'
+import { useRecoilState } from 'recoil'
+import { itemsState } from '../atoms/itemsState'
 
 const MIN_RATING = 1
 const MAX_RATING = 5
@@ -13,6 +15,14 @@ function Product({ id, title, description, category, price, image }) {
   )
 
   const [hasPrime] = useState(Math.random() > 0.5)
+
+  const [items, setItems] = useRecoilState(itemsState)
+
+  const products = { id, title, description, category, price, image, hasPrime }
+
+  const addItemToAtomState = () => {
+    setItems([...items, products])
+  }
 
   return (
     <div className="relative z-30 m-5 flex flex-col rounded-sm bg-white p-10">
@@ -28,7 +38,7 @@ function Product({ id, title, description, category, price, image }) {
         {Array(rating)
           .fill(0)
           .map((_, i) => (
-            <StarIcon className="h-5 text-cyan-900" />
+            <StarIcon key={i} className="h-5 text-cyan-900" />
           ))}
       </div>
 
@@ -52,6 +62,9 @@ function Product({ id, title, description, category, price, image }) {
       )}
 
       <button className="button mt-auto">Add to basket</button>
+      <button onClick={addItemToAtomState} className="button mt-auto">
+        Add to basket
+      </button>
     </div>
   )
 }

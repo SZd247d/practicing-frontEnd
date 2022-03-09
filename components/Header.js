@@ -4,14 +4,26 @@ import {
   MenuIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/outline'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useRecoilState } from 'recoil'
+import { itemsState } from '../atoms/itemsState'
 
 function Header() {
+
+
+function Header() {
+  const { data: session } = useSession()
+  const router = useRouter()
+  const [items, setItems] = useRecoilState(itemsState)
+
   return (
     <header className="">
       {/* Header Top */}
       <div className="flex w-full grow items-center bg-amazon_blue p-1 py-2">
         <div className="mt-2 flex grow items-center sm:grow-0">
           <Image
+            onClick={() => router.push('/')}
             className="cursor-pointer"
             src="https://links.papareact.com/f90"
             width={150}
@@ -35,6 +47,10 @@ function Header() {
             <p className="font-extrabold md:text-sm">Account & Lists</p>
           </div>
 
+          <div onClick={!session ? signIn : signOut} className="link">
+            <p>{session ? `Hello ${session.user.name}` : `Sign In`}</p>
+            <p className="font-extrabold md:text-sm">Account & Lists</p>
+          </div>
           <div className="link">
             <p>Returns</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
@@ -43,11 +59,19 @@ function Header() {
           <div className="link relative flex items-center">
             <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-400 text-center font-bold text-black md:right-10">
               0
+              </span>
+          <div
+            onClick={() => router.push('/checkout')}
+            className="link relative flex items-center"
+          >
+            <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-400 text-center font-bold text-black md:right-10">
+              {items.length}
             </span>
             <ShoppingCartIcon className="h-10" />
             <p className="mt-2 hidden font-extrabold md:inline md:text-sm">
               Basket
             </p>
+          </div>
           </div>
         </div>
       </div>
@@ -72,5 +96,5 @@ function Header() {
     </header>
   )
 }
-
+}
 export default Header
