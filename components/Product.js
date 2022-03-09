@@ -61,7 +61,6 @@ function Product({ id, title, description, category, price, image }) {
         </div>
       )}
 
-      <button className="button mt-auto">Add to basket</button>
       <button onClick={addItemToAtomState} className="button mt-auto">
         Add to basket
       </button>

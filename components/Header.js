@@ -10,9 +10,6 @@ import { useRecoilState } from 'recoil'
 import { itemsState } from '../atoms/itemsState'
 
 function Header() {
-
-
-function Header() {
   const { data: session } = useSession()
   const router = useRouter()
   const [items, setItems] = useRecoilState(itemsState)
@@ -42,11 +39,6 @@ function Header() {
 
         {/* Right */}
         <div className="mx-6 flex items-center space-x-6 whitespace-nowrap text-xs text-white">
-          <div className="link">
-            <p>Hello, Zaki Sellali!</p>
-            <p className="font-extrabold md:text-sm">Account & Lists</p>
-          </div>
-
           <div onClick={!session ? signIn : signOut} className="link">
             <p>{session ? `Hello ${session.user.name}` : `Sign In`}</p>
             <p className="font-extrabold md:text-sm">Account & Lists</p>
@@ -59,19 +51,19 @@ function Header() {
           <div className="link relative flex items-center">
             <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-400 text-center font-bold text-black md:right-10">
               0
-              </span>
-          <div
-            onClick={() => router.push('/checkout')}
-            className="link relative flex items-center"
-          >
-            <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-400 text-center font-bold text-black md:right-10">
-              {items.length}
             </span>
-            <ShoppingCartIcon className="h-10" />
-            <p className="mt-2 hidden font-extrabold md:inline md:text-sm">
-              Basket
-            </p>
-          </div>
+            <div
+              onClick={() => router.push('/checkout')}
+              className="link relative flex items-center"
+            >
+              <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-yellow-400 text-center font-bold text-black md:right-10">
+                {items.length}
+              </span>
+              <ShoppingCartIcon className="h-10" />
+              <p className="mt-2 hidden font-extrabold md:inline md:text-sm">
+                Basket
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -96,5 +88,5 @@ function Header() {
     </header>
   )
 }
-}
+
 export default Header

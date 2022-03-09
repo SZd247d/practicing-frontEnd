@@ -6,15 +6,14 @@ import ProductFeed from '../components/ProductFeed'
 
 const Home = ({ products }) => {
   console.log(products)
-const Home = () => {
-  const [products, SetProducts] = useState([])
+  // const [products, SetProducts] = useState([])
 
-  useEffect(async () => {
-    const data = await fetch('https://fakestoreapi.com/products')
-    const products = await data.json()
+  // useEffect(async () => {
+  //   const data = await fetch('https://fakestoreapi.com/products')
+  //   const products = await data.json()
 
-    SetProducts(products)
-  }, [])
+  //   SetProducts(products)
+  // }, [])
 
   // console.log(products)
 
@@ -48,20 +47,31 @@ export async function getServerSideProps(context) {
       products,
     },
   }
+
+  // I Don't Know Why fetching data from fakeStoreAPI ON THE SERVER is not Working ? Swithcing to useEffect() .
+
+  // export async function getStaticProps(context) {
+  //   // const products = await fetch('https://fakestoreapi.com/products').then(
+  //   //   (res) => res.json()
+  //   // )
+
+  //   const data = await fetch('https://fakestoreapi.com/products')
+  //   const products = await data.json()
+
+  //   return {
+  //     props: {
+  //       products,
+  //     },
+  //   }
+  // }
 }
-// I Don't Know Why fetching data from fakeStoreAPI ON THE SERVER is not Working ? Swithcing to useEffect() .
+// import React from 'react'
+// function index() {
+//   return (
+//     <div>
 
-// export async function getStaticProps(context) {
-//   // const products = await fetch('https://fakestoreapi.com/products').then(
-//   //   (res) => res.json()
-//   // )
-
-//   const data = await fetch('https://fakestoreapi.com/products')
-//   const products = await data.json()
-
-//   return {
-//     props: {
-//       products,
-//     },
-//   }
+//     </div>
+//   )
 // }
+
+// export default index
