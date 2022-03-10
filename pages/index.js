@@ -5,7 +5,6 @@ import Header from '../components/Header'
 import ProductFeed from '../components/ProductFeed'
 
 const Home = ({ products }) => {
-  console.log(products)
   // const [products, SetProducts] = useState([])
 
   // useEffect(async () => {

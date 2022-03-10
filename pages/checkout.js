@@ -5,6 +5,10 @@ import { selector, useRecoilState, useRecoilValue } from 'recoil'
 import { itemsState } from '../atoms/itemsState'
 import CheckoutProduct from '../components/CheckoutProduct'
 import Header from '../components/Header'
+import { loadStripe } from '@stripe/stripe-js'
+import axios from 'axios'
+
+const stripePromise = loadStripe(process.env.stripe_public_key)
 
 function Checkout() {
   const [items, setItems] = useRecoilState(itemsState)
@@ -30,6 +34,23 @@ function Checkout() {
   })
 
   const totalItems = useRecoilValue(totalItemsState)
+
+  const createCheckoutSessions = async () => {
+    const stripe = await stripePromise
+
+    // Call Backend to create a checkout session
+    const checkoutSession = await axios.post('/api/create-checkout-session', {
+      items,
+      email: session.user.email,
+    })
+
+    // Redirect the user/customer to Stripe Checkout
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    })
+
+    if (result.error) alert(result.error.message)
+  }
 
   return (
     <div className="min-h-screen bg-white ">
@@ -78,6 +99,8 @@ function Checkout() {
               </h2>
 
               <button
+                onClick={createCheckoutSessions}
+                role="link"
                 disabled={!session}
                 className={`button mt-2 ${
                   !session &&
